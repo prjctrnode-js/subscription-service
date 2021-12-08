@@ -1,5 +1,5 @@
-'use strict';
 const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Subscriptions extends Model {
     /**
@@ -16,11 +16,11 @@ module.exports = (sequelize, DataTypes) => {
       userId: DataTypes.INTEGER,
       subscriptionId: DataTypes.INTEGER,
       createdAt: DataTypes.DATE,
-      updatedAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE
     },
     {
       sequelize,
-      modelName: 'Subscriptions',
+      modelName: 'Subscriptions'
     }
   );
   return Subscriptions;
