@@ -1,15 +1,8 @@
 const Router = require('@koa/router');
 
 const router = new Router();
-const pJson = require('../../../package.json');
+const subscriptionsHealth = require('../../controllers/subscriptionsHealth');
 
-router.get('/subscriptions/health', async (ctx) => {
-  ctx.set({ 'Content-Type': 'application/json' });
-  ctx.status = 200;
-  ctx.body = JSON.stringify({
-    succes: true,
-    message: `Name ${pJson.name}, verion ${pJson.version}`
-  });
-});
+router.get('/subscriptions/health', subscriptionsHealth);
 
 module.exports = router;
