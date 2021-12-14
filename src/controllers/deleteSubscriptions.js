@@ -1,9 +1,10 @@
 const db = require('../db/models');
 
 const deleteSubscriptions = async (ctx) => {
+  const { id } = ctx.params;
   const res = await db.Subscriptions.destroy({
     where: {
-      id: ctx.request.query.id,
+      id,
       userId: ctx.request.query.userId
     }
   });

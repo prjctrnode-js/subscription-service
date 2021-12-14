@@ -12,7 +12,7 @@ healthRoute.get('/subscriptions/health', subscriptionsHealth);
 
 subscriptionsRoute.post('/subscriptions', createSubscription);
 subscriptionsRoute.get('/subscriptions', getSubscription);
-subscriptionsRoute.delete('/subscriptions', deleteSubscriptions);
+subscriptionsRoute.delete('/subscriptions/:id', deleteSubscriptions);
 
 const router = combineRouters(healthRoute, subscriptionsRoute);
 
