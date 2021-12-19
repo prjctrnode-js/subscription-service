@@ -1,18 +1,18 @@
 const db = require('../db/models');
 
-const deleteSubscriptions = async (ctx) => {
-  const { id } = ctx.params;
-  const res = await db.Subscriptions.destroy({
+const deleteSubscriptions = async (id, userId) => {
+  await db.Subscriptions.destroy({
     where: {
       id,
-      userId: ctx.request.query.userId
+      userId
     }
   });
-  ctx.body = {
-    success: true,
-    message: `${
-      res ? 'subscription deleted successfully' : 'subscription not find'
-    }`
+  return {
+    status: 200,
+    body: {
+      success: true,
+      message: 'subscription deleted successfully'
+    }
   };
 };
 

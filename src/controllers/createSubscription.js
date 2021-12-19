@@ -1,9 +1,8 @@
 const db = require('../db/models');
 const updateOrCreate = require('../helpers/updateOrCreate');
 
-const createSubscription = async (ctx) => {
-  const { userId, subscriptionId } = ctx.request.body;
-  ctx.body = await updateOrCreate(
+const createSubscription = async (userId, subscriptionId) => {
+  const body = await updateOrCreate(
     db.Subscriptions,
     { subscriptionId, userId },
     {
@@ -11,6 +10,10 @@ const createSubscription = async (ctx) => {
       subscriptionId
     }
   );
+  return {
+    status: 200,
+    body
+  };
 };
 
 module.exports = createSubscription;

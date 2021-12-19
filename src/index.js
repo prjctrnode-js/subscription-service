@@ -4,7 +4,6 @@ require('dotenv-defaults').config();
 const errorHandler = require('./middlewares/errorHandler');
 const loggerMiddleware = require('./middlewares/loggerMiddleware');
 const logger = require('./helpers/logger');
-const validatorMiddleware = require('./middlewares/validatorMiddleware');
 const router = require('./middlewares/routes/routes');
 
 const app = new Koa();
@@ -12,7 +11,6 @@ const app = new Koa();
 app.use(bodyparser());
 app.use(loggerMiddleware);
 app.use(errorHandler());
-app.use(validatorMiddleware);
 app.use(router());
 
 app.listen(process.env.PORT, () => {
