@@ -3,16 +3,19 @@ const createSubscription = require('../../controllers/createSubscription');
 const getSubscription = require('../../controllers/getSubscription');
 const deleteSubscriptions = require('../../controllers/deleteSubscriptions');
 const validatorMiddleware = require('../validatorMiddleware');
+const isAuth = require('../isAuth');
 
 const subscriptionsRoute = new Router();
 subscriptionsRoute.post(
   '/subscriptions',
+  isAuth,
   validatorMiddleware('subscription', (ctx) => ({
-    userId: ctx.request.query.userId,
-    subscriptionId: ctx.params.id
+    userId: ctx.user.id,
+    subscriptionId: ctx.request.body.subscriptionId
   })),
   async (ctx) => {
-    const { userId, subscriptionId } = ctx.request.body;
+    const userId = ctx.user.id;
+    const { subscriptionId } = ctx.request.body;
     const { status, body } = await createSubscription(userId, subscriptionId);
     ctx.status = status;
     ctx.body = body;
@@ -20,6 +23,7 @@ subscriptionsRoute.post(
 );
 subscriptionsRoute.get(
   '/subscriptions',
+  isAuth,
   validatorMiddleware('getSubscription', (ctx) => ({
     userId: ctx.request.query.userId
   })),
@@ -33,13 +37,14 @@ subscriptionsRoute.get(
 );
 subscriptionsRoute.delete(
   '/subscriptions/:id',
+  isAuth,
   validatorMiddleware('subscription', (ctx) => ({
-    userId: ctx.request.query.userId,
+    userId: ctx.user.id,
     subscriptionId: ctx.params.id
   })),
   async (ctx) => {
     const { id } = ctx.params;
-    const { userId } = ctx.request.query;
+    const userId = ctx.user.id;
     const { status, body } = await deleteSubscriptions(id, userId);
     ctx.status = status;
     ctx.body = body;
